@@ -6,7 +6,11 @@ const typeDefs = readFileSync(
   "UTF-8"
 );
 
-const server = new ApolloServer({ typeDefs, mocks: true });
+const mocks = {
+  Int: () => 40
+}
+
+const server = new ApolloServer({ typeDefs, mocks, mockEntireSchema: false });
 
 server.listen().then(({ url }) => {
   console.log(`Server running at ${url}`);

@@ -1,0 +1,37 @@
+# Queries
+query($getPetByIdId: ID!) {
+  getPetById(id: $getPetByIdId) {
+    name
+    photo {
+      full
+      thumb
+     }
+  }
+  totalPets
+  allPets {
+    id
+    name
+    category
+  }
+}
+
+# Mutations
+mutation {
+  createAccount(input: {
+    name: "Michael"
+    username: "test"
+    password: "123"
+  }) {
+    ...on Error {
+      message
+    }
+    ...on Customer {
+      name
+    }
+  }
+}
+
+# Variables
+{
+  "getPetByIdId": "42"
+}

@@ -1,3 +1,55 @@
+# Thanks to Eve Porcello for the great workshop
+
+type Pet {
+  id: ID!
+  name: String!
+  weight: Float!
+  category: PetCategory!
+  photo: Photo!
+  inCareOf: Customer!
+}
+
+type Customer {
+  id: ID!
+  name: String!
+  dateCreated: String!
+  currentPets: [Pet!]!
+}
+
+type Photo {
+  full: String!
+  thumb: String!
+}
+
+enum PetCategory {
+  CAT
+  DOG
+  RABBIT
+  STINGRAY
+  # Who does not want a stingray?
+}
+
 type Query {
-  gnar: String!
+  allPets: [Pet!]!
+  totalPets: Int!
+  getPetById(id: ID!): Pet!
+  getPetByName(name: String!): Pet!
+}
+
+type Error {
+  message: String!
+}
+
+# Payload typically used for return values of mutations
+union AccountPayload = Customer | Error
+
+type Mutation {
+  createAccount(input: CreateAccountInput!): AccountPayload!
+  deleteAccount: AccountPayload!
+}
+
+input CreateAccountInput {
+  name: String!
+  username: String!
+  password: String!
 }
